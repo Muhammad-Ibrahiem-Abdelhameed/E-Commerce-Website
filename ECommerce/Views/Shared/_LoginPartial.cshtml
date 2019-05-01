@@ -1,0 +1,130 @@
+@using Microsoft.AspNetCore.Identity
+@using  ECommerce.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!-- Top Bar -->
+
+<div class="top_bar">
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex flex-row">
+                <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="~/images/phone.png" alt=""></div>+38 068 005 3570</div>
+                <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="~/images/mail.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+                <div class="top_bar_content ml-auto">
+                    <div class="top_bar_menu">
+                        <ul class="standard_dropdown top_bar_dropdown"></ul>
+                    </div>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+
+                        <div class="top_bar_user">
+                            <div class="user_icon"><img src="~/images/user.svg" alt=""></div>
+                            <div>
+                                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                                    @User.Identity.Name
+                                </a>
+                            </div>
+                            <div>
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="top_bar_user">
+                            <div class="user_icon"><img src="~/images/user.svg" alt=""></div>
+                            <div><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
+                            <div><a asp-area="Identity" asp-page="/Account/Login">Sign in</a></div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Header Main -->
+
+<div class="header_main">
+    <div class="container">
+        <div class="row">
+
+            <!-- Logo -->
+            <div class="col-lg-2 col-sm-3 col-3 order-1">
+                <div class="logo_container">
+                    <div class="logo"><a href="#">E-Shop</a></div>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+                <div class="header_search">
+                    <div class="header_search_content">
+                        <div class="header_search_form_container">
+                            <!--<form action="#" class="header_search_form clearfix">
+                                <input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+                                <div class="custom_dropdown">
+                                    <div class="custom_dropdown_list">
+                                        <span class="custom_dropdown_placeholder clc">All Categories</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                        <ul class="custom_list clc">
+                                            <li><a class="clc" href="#">All Categories</a></li>
+                                            <li><a class="clc" href="#">Computers</a></li>
+                                            <li><a class="clc" href="#">Laptops</a></li>
+                                            <li><a class="clc" href="#">Cameras</a></li>
+                                            <li><a class="clc" href="#">Hardware</a></li>
+                                            <li><a class="clc" href="#">Smartphones</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button type="submit" class="header_search_button trans_300" value="Submit"><img src="~/images/search.png" alt=""></button>
+                            </form>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist -->
+            <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
+                <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+
+                    <!-- Cart -->
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div class="wishlist d-flex flex-row align-items-center justify-content-end">
+                            <div class="wishlist_icon"><img src="~/images/heart.png" alt=""></div>
+                            <div class="wishlist_content">
+                                <div class="wishlist_text"><a href="#">Wishlist</a></div>
+                                <!--<div class="wishlist_count">115</div>-->
+                            </div>
+                        </div>
+
+                        <div class="cart">
+                            <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+                                <div class="cart_icon">
+                                    <img src="~/images/cart.png" alt="">
+                                    <div id="cartDiv" class="cart_count"><span>@ViewBag.Cart</span></div>
+                                </div>
+                                <div class="cart_content">
+                                    <div class="cart_text"><a asp-action="Index" asp-controller="ShoppingCarts">Cart</a></div>
+                                    <!--<div class="cart_price">$85</div>-->
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
